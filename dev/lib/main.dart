@@ -15,12 +15,12 @@ class _PerguntaAppState extends State<PerguntaApp>{
         'resp': ["azul", "vermelho", "preto"]
       },
       {
-        'text': "Qual é o seu nome?",
-        'resp': ["lucas", "joao", "maria"]
+        'text': "Qual a sua profissão?",
+        'resp': ["programador", "motoboy", "uber"]
       },
       {
         'text': "Qual seu hobbie?",
-        'resp': ["futebol", "dormir", "comer"]
+        'resp': ["leitura", "dormir", "comer"]
       }
     ];
 
@@ -53,7 +53,15 @@ class _PerguntaAppState extends State<PerguntaApp>{
             ...widgets // todos os elementos na lista
 
           ],
-        ) : null,
+        ) : const Center(
+          child: Text(
+            'Parabens!',
+            style: TextStyle(
+              fontSize: 28
+            ),
+
+            ),
+        ),
       ),
     );
   }
