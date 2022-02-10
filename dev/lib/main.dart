@@ -1,7 +1,6 @@
+import 'package:dev/components/result.dart';
 import 'package:flutter/material.dart';
-import 'components/question.dart';
-import 'components/answear.dart';
-import 'components/result.dart';
+import 'components/quiz.dart';
 
 void main() {
   runApp(const PerguntaApp());
@@ -25,7 +24,7 @@ class _PerguntaAppState extends State<PerguntaApp>{
       }
     ];
 
-  void _responder (){
+  void _respond (){
    if(hasQuestionSelected){
       setState(() {
       _selectedQuestion++;
@@ -39,22 +38,14 @@ class _PerguntaAppState extends State<PerguntaApp>{
 
   @override
   Widget build(BuildContext context) {
-
-    List<String> res = hasQuestionSelected ? _perguntas[_selectedQuestion].cast()['resp'] : [];
-    List<Widget> widgets = res.map((text) => Answear(text, _responder)).toList();
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Perguntas"),
         ),
-        body: hasQuestionSelected ? Column(
-          children: <Widget>[
-            Question(_perguntas[_selectedQuestion]['text'].toString()),
-            ...widgets // todos os elementos na lista
-
-          ],
-        ) : Result("Parabens Joven !")
+        body: hasQuestionSelected 
+          ? Quiz(questions: _perguntas, questionSelected: _selectedQuestion, toRespond: _respond)
+          : Result("Parabens Joven! 33")
       ),
     );
   }
