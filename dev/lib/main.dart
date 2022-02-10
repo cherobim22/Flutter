@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'components/question.dart';
 import 'components/answear.dart';
+import 'components/result.dart';
 
 void main() {
   runApp(const PerguntaApp());
@@ -53,15 +54,7 @@ class _PerguntaAppState extends State<PerguntaApp>{
             ...widgets // todos os elementos na lista
 
           ],
-        ) : const Center(
-          child: Text(
-            'Parabens!',
-            style: TextStyle(
-              fontSize: 28
-            ),
-
-            ),
-        ),
+        ) : Result("Parabens Joven !")
       ),
     );
   }
