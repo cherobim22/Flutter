@@ -1,22 +1,26 @@
+import 'package:expenses/pages/login_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _HomePageState extends State<HomePage> {
   final formKey = GlobalKey<FormState>();
   final email = TextEditingController();
   final senha = TextEditingController();
 
   bool isLogin = true;
   late String titulo;
-  late String actionButton;
+  late String firebaseLogin;
+  late String googleLogin;
   late String toggleButton;
   bool loading = false;
 
@@ -28,16 +32,18 @@ class _LoginPageState extends State<LoginPage> {
 
   setFormAction(bool acao) {
     setState(() {
-      isLogin = acao;
-      if (isLogin) {
-        titulo = 'Bem vindo';
-        actionButton = 'Login';
-        toggleButton = 'Ainda não tem conta? Cadastre-se agora.';
-      } else {
-        titulo = 'Crie sua conta';
-        actionButton = 'Cadastrar';
-        toggleButton = 'Voltar ao Login.';
-      }
+      firebaseLogin = 'Login Padrão';
+      googleLogin = 'Login Google';
+      // isLogin = acao;
+      // if (isLogin) {
+      titulo = 'Bem vindo';
+      //   firebaseLogin = 'Login';
+      toggleButton = 'Ainda não tem conta? Cadastre-se agora.';
+      // } else {
+      //   titulo = 'Crie sua conta';
+      //   firebaseLogin = 'Cadastrar';
+      //   toggleButton = 'Voltar ao Login.';
+      // }
     });
   }
 
@@ -66,9 +72,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login Firebase"),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(top: 100),
@@ -86,53 +89,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(24),
-                  child: TextFormField(
-                    controller: email,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Informe o email corretamente!';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                  child: TextFormField(
-                    controller: senha,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Senha',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Informa sua senha!';
-                      } else if (value.length < 6) {
-                        return 'Sua senha deve ter no mínimo 6 caracteres';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
                   padding: EdgeInsets.all(24.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        if (isLogin) {
-                          login();
-                        } else {
-                          registrar();
-                        }
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -154,7 +117,50 @@ class _LoginPageState extends State<LoginPage> {
                               Padding(
                                 padding: EdgeInsets.all(16.0),
                                 child: Text(
-                                  actionButton,
+                                  firebaseLogin,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(24.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.blue),
+                    onPressed: () async {
+                      setState(() => loading = true);
+                      try {
+                        await context.read<AuthService>().googleLogin();
+                      } on AuthException catch (e) {
+                        setState(() => loading = false);
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(e.message)));
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: (loading)
+                          ? [
+                              Padding(
+                                padding: EdgeInsets.all(16),
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ]
+                          : [
+                              FaIcon(FontAwesomeIcons.google,
+                                  color: Colors.white),
+                              Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Text(
+                                  googleLogin,
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),

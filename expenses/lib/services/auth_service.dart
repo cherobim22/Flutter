@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthException implements Exception {
   String message;
@@ -7,6 +8,9 @@ class AuthException implements Exception {
 }
 
 class AuthService extends ChangeNotifier {
+  final googleSignIn = GoogleSignIn();
+  GoogleSignInAccount? _user;
+
   FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
   bool isLoading = true;
@@ -47,8 +51,6 @@ class AuthService extends ChangeNotifier {
       await _auth.signInWithEmailAndPassword(email: email, password: senha);
       _getUser();
     } on FirebaseAuthException catch (e) {
-      print('object');
-      print(e);
       if (e.code == 'user-not-found') {
         throw AuthException('Email não encontrado. Cadastre-se.');
       } else if (e.code == 'wrong-password') {
@@ -60,5 +62,21 @@ class AuthService extends ChangeNotifier {
   logout() async {
     await _auth.signOut();
     _getUser();
+  }
+
+  Future googleLogin() async {
+    final googleUser = await googleSignIn.signIn();
+
+    if (googleSignIn == null) return;
+    _user = googleUser;
+
+    final googleAuth = await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    notifyListeners();
   }
 }
