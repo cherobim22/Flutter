@@ -34,16 +34,9 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       firebaseLogin = 'Login Padrão';
       googleLogin = 'Login Google';
-      // isLogin = acao;
-      // if (isLogin) {
       titulo = 'Bem vindo';
-      //   firebaseLogin = 'Login';
       toggleButton = 'Ainda não tem conta? Cadastre-se agora.';
-      // } else {
-      //   titulo = 'Crie sua conta';
-      //   firebaseLogin = 'Cadastrar';
-      //   toggleButton = 'Voltar ao Login.';
-      // }
+   
     });
   }
 
