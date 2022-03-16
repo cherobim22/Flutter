@@ -14,11 +14,12 @@ class _LoginPageState extends State<LoginPage> {
   final email = TextEditingController();
   final senha = TextEditingController();
 
-  bool isLogin = true;
   late String titulo;
   late String actionButton;
   late String toggleButton;
+
   bool loading = false;
+  bool isLogin = true;
 
   @override
   void initState() {
@@ -77,14 +78,14 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  titulo,
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: -1.5,
-                  ),
-                ),
+                // Text(
+                //   titulo,
+                //   style: TextStyle(
+                //     fontSize: 35,
+                //     fontWeight: FontWeight.bold,
+                //     letterSpacing: -1.5,
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsets.all(24),
                   child: TextFormField(
