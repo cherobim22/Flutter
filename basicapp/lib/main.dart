@@ -1,10 +1,9 @@
-import 'package:basicapp/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'models/auth.dart';
+import 'models/user.dart';
+import 'screens/auth_or_home_screen.dart';
 import 'screens/categories_meals_screen.dart';
 import 'screens/meal_detail_screen.dart';
-import 'screens/tabs_screen.dart';
-import 'screens/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => Auth())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => Auth()),
+        ChangeNotifierProxyProvider<Auth, User>(
+            create: (_) => User('', []),
+            update: (context, auth, previous) {
+              return User(auth.token ?? '', [auth]);
+            })
+      ],
       child: MaterialApp(
         title: 'Vamos Cozinhar?',
         theme: ThemeData(
@@ -28,8 +34,9 @@ class MyApp extends StatelessWidget {
               ),
         ),
         routes: {
-          '/': (context) => AuthScreen(),
-          '/home': (context) => TabsScreen(),
+          '/': (context) => AuhOrHomeScreen(),
+          // '/auth': (context) => AuthScreen(),
+          // '/home': (context) => TabsScreen(),
           '/categories-meals': (context) => CategoresMealsScreen(),
           '/meal-details': (context) => MealDeatilScreen()
         },
