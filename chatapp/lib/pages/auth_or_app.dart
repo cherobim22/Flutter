@@ -1,4 +1,5 @@
 import 'package:chatapp/core/services/auth/auth_mock_service.dart';
+import 'package:chatapp/core/services/auth/auth_service.dart';
 import 'package:chatapp/pages/auth_page.dart';
 import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/pages/loading_page.dart';
@@ -15,7 +16,7 @@ class AuthOrAppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<ChatUser?>(
-        stream: AuthMockService().userChanges,
+        stream: AuthService().userChanges,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingPage();

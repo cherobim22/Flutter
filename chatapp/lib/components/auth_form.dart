@@ -49,10 +49,10 @@ class _AuthFormState extends State<AuthForm> {
             key: _formKey,
             child: Column(
               children: [
-                if (_formData.isSignup)
-                  UserImagePicker(
-                    onImagePick: _handleImagePick,
-                  ),
+                // if (_formData.isSignup)
+                UserImagePicker(
+                  onImagePick: _handleImagePick,
+                ),
                 if (_formData.isSignup)
                   TextFormField(
                     key: ValueKey('name'),

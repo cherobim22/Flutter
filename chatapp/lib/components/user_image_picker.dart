@@ -17,16 +17,20 @@ class _UserImagePickerState extends State<UserImagePicker> {
   File? _image;
 
   Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickerImage = await picker.pickImage(
-        source: ImageSource.gallery, imageQuality: 60, maxWidth: 150);
+    try {
+      final picker = ImagePicker();
+      final pickerImage = await picker.pickImage(
+          source: ImageSource.gallery, imageQuality: 60, maxWidth: 150);
 
-    if (pickerImage != null) {
-      setState(() {
-        _image = File(pickerImage.path);
-      });
+      if (pickerImage != null) {
+        setState(() {
+          _image = File(pickerImage.path);
+        });
 
-      // widget.onImagePick(_image!);
+        widget.onImagePick(_image!);
+      }
+    } catch (e) {
+      throw 'error : ${e}';
     }
   }
 
