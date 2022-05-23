@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chatapp/core/models/chat_user.dart';
+import 'package:chatapp/core/services/auth/auth_mock_service.dart';
 
 abstract class AuthService {
   ChatUser? get currentUser;
@@ -8,4 +9,7 @@ abstract class AuthService {
   Future<void> signup(String name, String email, String password, File image);
   Future<void> login(String email, String password);
   Future<void> logout();
+  factory AuthService() {
+    return AuthMockService();
+  }
 }

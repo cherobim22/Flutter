@@ -6,7 +6,7 @@ import 'package:chatapp/core/services/auth/auth_service.dart';
 
 import '../../models/chat_user.dart';
 
-class AuthMockService extends AuthService {
+class AuthMockService implements AuthService {
   // static pertence apenas a classe, não precisa ser intanciada;
   static Map<String, ChatUser> _users = {};
   static ChatUser? _currentUser;
@@ -34,7 +34,7 @@ class AuthMockService extends AuthService {
         id: Random().nextDouble().toString(),
         name: name,
         email: email,
-        imageUrl: image?.path ?? '/assets/images/.....');
+        imageUrl: image?.path ?? 'assets/images/avatar.png');
 
     _users.putIfAbsent(email, () => newUser);
     _updateUser(newUser);
