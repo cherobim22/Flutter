@@ -42,6 +42,7 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.transparent,
       margin: EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(16),
