@@ -1,8 +1,7 @@
-import 'package:chatapp/core/services/auth/auth_mock_service.dart';
+import 'package:chatapp/components/messages.dart';
+import 'package:chatapp/components/new_message.dart';
 import 'package:chatapp/core/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -10,16 +9,48 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      appBar: AppBar(
+        title: const Text('Chat Page'),
+        actions: [
+          DropdownButton(
+            items: [
+              DropdownMenuItem(
+                value: 'logout',
+                child: Container(
+                    child: Row(
+                  children: const [
+                    Icon(
+                      Icons.exit_to_app,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Sair')
+                  ],
+                )),
+              )
+            ],
+            onChanged: (value) {
+              if (value == 'logout') {
+                AuthService().logout();
+              }
+            },
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('chat page'),
-            TextButton(
-                onPressed: () {
-                  AuthService().logout();
-                },
-                child: Text('Logout'))
+            Expanded(
+              child: Messages(),
+            ),
+            NewMessage()
           ],
         ),
       ),
