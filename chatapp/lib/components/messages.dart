@@ -1,3 +1,5 @@
+import 'package:chatapp/core/models/chat_message.dart';
+import 'package:chatapp/core/services/chat/chat_service.dart';
 import 'package:flutter/material.dart';
 
 class Messages extends StatelessWidget {
@@ -5,8 +7,21 @@ class Messages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Mensagens'),
+    return StreamBuilder<List<ChatMessage>>(
+      stream: ChatService().messageStream(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (!snapshot.hasData) {
+          return Center(child: Text('Sem dados'));
+        } else {
+          final msgs = snapshot.data!;
+          return ListView.builder(
+            itemCount: msgs.length,
+            itemBuilder: (ctx, i) => Text(msgs[i].text),
+          );
+        }
+      },
     );
   }
 }
