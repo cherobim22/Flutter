@@ -20,7 +20,7 @@ class Messages extends StatelessWidget {
         } else {
           final msgs = snapshot.data!;
           return ListView.builder(
-            reverse: true,
+            // reverse: true,
             itemCount: msgs.length,
             itemBuilder: (ctx, i) => MessageBubble(
               key: ValueKey(msgs[i].id),

@@ -79,6 +79,8 @@ class MessageBubble extends StatelessWidget {
                   ),
                   Text(
                     message.text,
+                    textAlign:
+                        belongsToCurrentUser ? TextAlign.right : TextAlign.left,
                     style: TextStyle(
                       color: belongsToCurrentUser ? Colors.black : Colors.white,
                     ),
