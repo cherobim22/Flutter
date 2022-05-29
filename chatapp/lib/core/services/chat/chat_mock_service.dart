@@ -7,18 +7,18 @@ import 'package:chatapp/core/services/chat/chat_service.dart';
 class ChatMockService implements ChatService {
   static final List<ChatMessage> _msgs = [
     ChatMessage(
-      id: Random().nextDouble().toString(),
-      text: 'OLa',
+      id: '1',
+      text: 'Salve Lucio',
       createdAt: DateTime.now(),
-      userId: Random().nextDouble().toString(),
+      userId: '3',
       userNAme: 'Cafu',
       userImageUrl: "https://i.pravatar.cc/300",
     ),
     ChatMessage(
-      id: Random().nextDouble().toString(),
-      text: 'Beleza ?',
+      id: '2',
+      text: 'Salve Cafu, beleza ?',
       createdAt: DateTime.now(),
-      userId: Random().nextDouble().toString(),
+      userId: '6',
       userNAme: 'Lucio',
       userImageUrl: "https://i.pravatar.cc/300",
     ),
