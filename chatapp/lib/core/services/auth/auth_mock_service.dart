@@ -9,7 +9,7 @@ class AuthMockService implements AuthService {
   static const _defaultUser = ChatUser(
     id: '456',
     name: 'Ana',
-    email: 'ana@cod3r.com.br',
+    email: 'ana@chatapp.com.br',
     imageURL: 'https://i.pravatar.cc/300',
   );
 
