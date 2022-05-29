@@ -29,6 +29,11 @@ class _NewMessageState extends State<NewMessage> {
         children: [
           Expanded(
             child: TextField(
+              onSubmitted: (_) {
+                if (_newMessage.trim().isEmpty) {
+                  _sendMessage;
+                }
+              },
               onChanged: (value) {
                 setState(() {
                   _newMessage = value;
