@@ -66,6 +66,9 @@ class MessageBubble extends StatelessWidget {
                 horizontal: 8,
               ),
               child: Column(
+                crossAxisAlignment: belongsToCurrentUser
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: [
                   Text(
                     message.userName,
