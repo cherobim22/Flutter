@@ -20,4 +20,14 @@ class ChatNotificationService with ChangeNotifier {
   void remove(int i) {
     _items.removeAt(i);
   }
+
+  //Push Notification
+  Future<void> init() async {
+    _configureForeground();
+  }
+
+  Future<void> _configureForeground() async {}
+  Future<bool> get _isAuthorized async {
+    return false;
+  }
 }
